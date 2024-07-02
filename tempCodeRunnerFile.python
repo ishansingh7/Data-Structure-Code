@@ -1,0 +1,54 @@
+import tkinter as tk
+from tkinter import ttk
+from googletrans import Translator
+
+class LanguageTranslatorApp:
+    def __init__(self, master):
+        self.master = master
+        master.title("Language Translator")
+
+        self.input_label = tk.Label(master, text="Enter text in English:")
+        self.input_label.pack()
+
+        self.input_entry = tk.Entry(master, width=50)
+        self.input_entry.pack()
+
+        self.language_label = tk.Label(master, text="Select language to translate:")
+        self.language_label.pack()
+
+        self.selected_language = tk.StringVar()
+        self.selected_language.set("French")  # Default selection
+        self.language_options = ["French", "Hindi", "Tamil", "Nepali"]
+        self.language_menu = ttk.OptionMenu(master, self.selected_language, *self.language_options)
+        self.language_menu.pack()
+
+        self.translate_button = tk.Button(master, text="Translate", command=self.translate_text)
+        self.translate_button.pack()
+
+        self.output_label = tk.Label(master, text="")
+        self.output_label.pack()
+
+    def translate_text(self):
+        input_text = self.input_entry.get()
+        translator = Translator()
+
+        translations = {
+            "French": translator.translate(input_text, src='en', dest='fr').text,
+            "Hindi": translator.translate(input_text, src='en', dest='hi').text,
+            "Tamil": translator.translate(input_text, src='en', dest='ta').text,
+            "Nepali": translator.translate(input_text, src='en', dest='ne').text
+        }
+
+        selected_language = self.selected_language.get()
+        self.update_output(translations[selected_language])
+
+    def update_output(self, translated_text):
+        self.output_label.config(text=translated_text)
+
+def main():
+    root = tk.Tk()
+    app = LanguageTranslatorApp(root)
+    root.mainloop()
+
+if __name__ == "__main__":
+    main()

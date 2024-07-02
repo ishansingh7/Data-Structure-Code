@@ -1,0 +1,8 @@
+/*
+1. No of nodes
+2.construct 2d array of node size
+3. fill all the elements of the array with zero values
+4. get -> directed or undirected
+5. get source and destination
+6.mark 1's/ 0's bassed on it
+*/
